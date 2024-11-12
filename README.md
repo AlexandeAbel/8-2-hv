@@ -1,117 +1,202 @@
-# Домашнее задание к занятию "`Название занятия`" - `Фамилия и имя студента`
+# <p style="text-align:center;"> **Домашнее задание к занятию «Что такое DevOps. СI/СD»  <Фамилия Имя>** </p>
 
+## Задание №1
 
-### Инструкция по выполнению домашнего задания
-
-   1. Сделайте `fork` данного репозитория к себе в Github и переименуйте его по названию или номеру занятия, например, https://github.com/имя-вашего-репозитория/git-hw или  https://github.com/имя-вашего-репозитория/7-1-ansible-hw).
-   2. Выполните клонирование данного репозитория к себе на ПК с помощью команды `git clone`.
-   3. Выполните домашнее задание и заполните у себя локально этот файл README.md:
-      - впишите вверху название занятия и вашу фамилию и имя
-      - в каждом задании добавьте решение в требуемом виде (текст/код/скриншоты/ссылка)
-      - для корректного добавления скриншотов воспользуйтесь [инструкцией "Как вставить скриншот в шаблон с решением](https://github.com/netology-code/sys-pattern-homework/blob/main/screen-instruction.md)
-      - при оформлении используйте возможности языка разметки md (коротко об этом можно посмотреть в [инструкции  по MarkDown](https://github.com/netology-code/sys-pattern-homework/blob/main/md-instruction.md))
-   4. После завершения работы над домашним заданием сделайте коммит (`git commit -m "comment"`) и отправьте его на Github (`git push origin`);
-   5. Для проверки домашнего задания преподавателем в личном кабинете прикрепите и отправьте ссылку на решение в виде md-файла в вашем Github.
-   6. Любые вопросы по выполнению заданий спрашивайте в чате учебной группы и/или в разделе “Вопросы по заданию” в личном кабинете.
-   
-Желаем успехов в выполнении домашнего задания!
-   
-### Дополнительные материалы, которые могут быть полезны для выполнения задания
-
-1. [Руководство по оформлению Markdown файлов](https://gist.github.com/Jekins/2bf2d0638163f1294637#Code)
-
----
-
-### Задание 1
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+**1. Установка Jenkins**
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+- Обновление пакетов и установка java
+apt update && apt install -y jenkins
+
+- Устанавливаем Java
+apt install fontconfig openjdk-17-jre
+
+
+- Устанавливаем зависимый пакет
+apt install gnupg2 -y
+
+- Запускаем скрипт для настройки репозитория Jenkis
+sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+```
+![Установленная Java](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/java_installed.png)
+
+![Установленный Jenkins](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/jenkins_installed.png)
+
+![Jenkins UI](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/jenkins_ui.png)
+ 
+ **2. Установка Go**
+ 
+```
+- Скачиваем и распаковываем архив
+wget https://go.dev/dl/go1.23.3.linux-amd64.tar.gz &&  && tar -zxf go1.23.3.linux-amd64.tar.gz
+
+- Добавляем переменную среды
+export PATH=$PATH:/usr/local/go/bin
+
+- Переносим исполняемые файлы
+mv go /usr/local/
+
+- Проверяем установку
+go version
+```
+ 
+![Установленный Golang](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/go_installed.png)
+
+ **3. Установка Docker**
+ 
+```
+- Устанавливаем зависимые пакеты
+apt-get install ca-certificates curl
+
+- Задаем права доступа на каталог ключей
+install -m 0755 -d /etc/apt/keyrings
+
+- Скачиваем ключ
+curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+
+- Задаем права на скачанный ключ
+chmod a+r /etc/apt/keyrings/docker.asc
+
+- Добавляем репозиторий докера
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+  
+- Обновляем список пакетов
+apt-get update
+
+- Уставнавливаем докер
+apt-get install docker-ce docker-ce-cli containerd.io
+
+- Запускаем сервис докера
+service docker start
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 1](ссылка на скриншот 1)`
+**4. Настраиваем проект в Jenkins**
 
-
----
-
-### Задание 2
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
+- Натравливаем на GitHub
+    - Ставим галку на `GitHub Project` и в поле вставляем `https://github.com/netology-code/sdvps-materials.git/`
+    - Опускаемся до `Управление исходным кодом`, выбираем `Git`, вставляем в поле `Управление исходным кодом`
+- Описываем задачи
+    - Опускаемся до `Шаги сборки`
+    - Выбираем `Выполнить команду shell`
+    - Вставляем код из `https://github.com/netology-code/sdvps-materials/blob/main/CICD/8.2-hw.md`
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+    /usr/local/go/bin/go test .
+    sudo docker build . 
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 2](ссылка на скриншот 2)`
+![Настройки Jenkins](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/jenkins_settings_1.png)
 
+![Настройки Jenkins](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/jenkins_settings_2.png)
 
----
+![Настройки Jenkins](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/jenkins_settings_3.png)
 
-### Задание 3
+![Успешный пайп скрин №1](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/success_pipe.png)
 
-`Приведите ответ в свободной форме........`
+![Успешный пайп скрин №2](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/success_pipe_end.png)
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+## Задание №2
 
+- Создаем новый `Item` и выбираем 'PipeLine'
+- Ставим галку на `GitHub Project` и в поле вставляем `https://github.com/netology-code/sdvps-materials.git/`
+- В поле `PipeLine` вставляем код:
 ```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
-
-### Задание 4
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
+        pipeline {
+     agent any
+     stages {
+      stage('Git') {
+       steps {git 'https://github.com/netology-code/sdvps-materials.git'}
+      }
+      stage('Test') {
+       steps {
+        sh '/usr/local/go/bin/go test .'
+       }
+      }
+      stage('Build') {
+       steps {
+        sh 'docker build . -t ubuntu-bionic:8082/hello-world:v$BUILD_NUMBER'
+       }
+      }
+     }
+    }
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+![Настройки Jenkins](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/pipeline_settings_1.png)
+
+![Настройки Jenkins](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/pipeline_settings_2.png)
+
+![Успешный пайп скрин №1](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/pipeline_success_1.png)
+
+![Успешный пайп скрин №2](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/pipeline_success_2.png)
+
+## Задание №3
+
+- Устанавливаем `Nexus`
+```
+     docker run -d -p 8081:8081 -p 8082:8082 --name nexus -e INSTALL4J_ADD_VM_PARAMS="-Xms512m -Xmx512m -XX:MaxDirectMemorySize=273m" sonatype/nexus3
+```
+- Заходим на http://192.168.1.92:8081/ и авторизуемся под `admin`
+- Создаем raw-hosted репозиторий
+- Изменяем код пайплайна на 
+```
+pipeline {
+ agent any
+ stages {
+  stage('Git') {
+   steps {git 'https://github.com/netology-code/sdvps-materials.git'}
+  }
+  stage('Test') {
+   steps {
+    sh '/usr/local/go/bin/go test .'
+   }
+  }
+  stage('Build') {
+   steps {
+    sh '''
+    /usr/local/go/bin/go build -a -installsuffix nocgo -o test
+    curl -v --user 'admin:80f2e5fe-1b18-4134-9541-6a524c23b1bb' --upload-file ./test http://localhost:8081/repository/netology/test
+    '''
+   }
+  }
+ }
+}
+```
+
+![Репозиторий Nexus](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/nexus-repo.png)
+
+![Успешный пайп](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/task_3_1.png)
+
+![Успешный пайп](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/task_3_2.png)
+
+## Задание №4
+
+- Меняем код пайпа на 
+```
+pipeline {
+ agent any
+ stages {
+  stage('Git') {
+   steps {git 'https://github.com/netology-code/sdvps-materials.git'}
+  }
+  stage('Test') {
+   steps {
+    sh '/usr/local/go/bin/go test .'
+   }
+  }
+  stage('Build') {
+   steps {
+    sh '''
+    /usr/local/go/bin/go build -a -installsuffix nocgo -o $BUILD_NUMBER
+    curl -v --user 'admin:80f2e5fe-1b18-4134-9541-6a524c23b1bb' --upload-file ./$BUILD_NUMBER http://localhost:8081/repository/netology/$BUILD_NUMBER
+    '''
+   }
+  }
+ }
+}
+```
+
+![Успешный пайп](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/task_4_1.png)
+
+![Успешный пайп](https://github.com/AlexandeAbel/8-2-hv/blob/main/img/task_4_2.png)
